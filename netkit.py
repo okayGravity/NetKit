@@ -6,7 +6,6 @@ import subprocess
 import sys
 import textwrap
 import threading
-from pyfiglet import Figlet as Fig
 
 def execute (cmd):
     cmd = cmd.strip()
@@ -105,7 +104,14 @@ class NetKit:
 # Main block for handling cml args and calling funcs
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description=f'{Fig(font='doom').renderText('Welcome to NetKit')}a netcat clone using python',
+        description=r""" 
+             _   _      _   _  ___ _   
+            | \ | | ___| |_| |/ (_) |_ 
+            |  \| |/ _ \ __| ' /| | __|
+            | |\  |  __/ |_| . \| | |_ 
+            |_| \_|\___|\__|_|\_\_|\__|
+            a netcat clone using python
+            """,
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent('''Examples:
         netkit.py -t 192.168.1.1 -p 1337 # connect to server
