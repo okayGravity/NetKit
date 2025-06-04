@@ -1,16 +1,11 @@
-███╗   ██╗███████╗████████╗  ██╗  ██╗██╗████████╗
-████╗  ██║██╔════╝╚══██╔══  ╝██║ ██╔╝██║╚══██╔══╝
-██╔██╗ ██║█████╗     ██║     █████╔╝ ██║   ██║   
-██║╚██╗██║██╔══╝     ██║     ██╔═██╗ ██║   ██║   
-██║ ╚████║███████╗   ██║     ██║  ██╗██║   ██║   
-╚═╝  ╚═══╝╚══════╝   ╚═╝      ╚═╝  ╚═╝╚═╝   ╚═╝  
-                  N E T K I T
-               A Netcat clone in Python
+
+N E T K I T
+
+A Netcat clone in Python
 
 NetKit is a Python-based Netcat clone designed to provide basic networking tools such as remote shell access, file transfers, and simple TCP/UDP communication.
 
 ![Python](https://img.shields.io/badge/Made%20with-Python-blue?logo=python)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 
 ---
 
