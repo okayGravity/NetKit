@@ -75,7 +75,7 @@ class NetKit:
         elif self.args.upload:
             file_buffer = b''
             while True:
-                data = self.socket.recv(4096)
+                data = client_socket.recv(4096)
                 if data:
                     file_buffer += data
                 else:
@@ -115,7 +115,7 @@ if __name__ == '__main__':
         echo 'foo bar' | netkit.py -t 192.168.1.1 -p 135 # echo text to server port 135
         '''))
     parser.add_argument('-t', '--target', default='192.168.1.203', help='specified IP address')
-    parser.add_argument('-p', '--port', default=1337, help='specified port')
+    parser.add_argument('-p', '--port', type=int, default=1337, help='specified port')
     parser.add_argument('-c', '--command', action='store_true', help='execute command')
     parser.add_argument('-e', '--execute', help='execute specified command')
     parser.add_argument('-l', '--listen', action='store_true', help='listen')
@@ -128,5 +128,5 @@ if __name__ == '__main__':
     else:
         buffer = sys.stdin.read()
 
-        nk = NetKit(args, buffer.encode())
-        nk.run()
+    nk = NetKit(args, buffer.encode())
+    nk.run()
