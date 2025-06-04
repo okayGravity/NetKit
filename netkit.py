@@ -57,7 +57,7 @@ class NetKit:
 
     # Binds target and port, listen on loop, passes connected socket to the handle method
     def listen(self):
-        self.socket.bind((self.args.host, self.args.port))
+        self.socket.bind((self.args.target, self.args.port))
         self.socket.listen(5)
         while True:
             client_socket, _ = self.socket.accept()
