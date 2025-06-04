@@ -9,12 +9,11 @@ NetKit is a Python-based Netcat clone designed to provide basic networking tools
 
 ---
 
-## 📌 Features (Planned)
-- ✅ TCP client and listener mode
-- ⏳ Reverse shell support
-- ⏳ File transfer over socket
-- ⏳ Simple shell command execution on remote host
-- ⏳ UDP support (optional in future)
+## 📌 Features
+- TCP client and listener mode
+- Reverse shell support
+- File transfer over socket
+- Simple shell command execution on remote host
 
 ---
 
@@ -28,8 +27,8 @@ NetKit is a Python-based Netcat clone designed to provide basic networking tools
 ## 🚀 Usage
 
 ```bash
-# Start listener mode (e.g., like `nc -lvp 4444`)
-python netkit.py --listen --port 4444
+# Start listener mode (e.g., like `nc -lvp 1337`)
+python netkit.py --listen --port 1337
 
 # Connect to a remote host
-python netkit.py --target 192.168.1.10 --port 4444
+python netkit.py --target 192.168.1.1 --port 1337
