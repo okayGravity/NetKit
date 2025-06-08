@@ -29,7 +29,11 @@ class NetKit:
             self.send()
 
     def send(self):
-        self.socket.connect((self.args.host, self.args.port))
+        try:
+            self.socket.connect((self.args.target, self.args.port))
+        except Exception as e:
+            print(f'Connection failed: {e}')
+            sys.exit()
         if self.buffer:
             self.socket.send(self.buffer)
 
@@ -59,8 +63,10 @@ class NetKit:
     def listen(self):
         self.socket.bind((self.args.target, self.args.port))
         self.socket.listen(5)
+        print(f"Starting listener on {self.args.target}:{self.args.port}...")
         while True:
             client_socket, _ = self.socket.accept()
+            print(f"[+] Accepted connection from client")
             client_thread = threading.Thread(
                     target=self.handle, args=(client_socket,)
             )
@@ -90,16 +96,20 @@ class NetKit:
             while True:
                 try:
                     client_socket.send(b'BHP: #> ')
-                    while '\n' not in cmd_buffer.decode():
+                    while b'\n' not in cmd_buffer: # Check to make sure user sends valid bytes
                         cmd_buffer += client_socket.recv(64)
-                    response = execute(cmd_buffer.decode())
+                    response = execute(cmd_buffer.decode(errors='ignore'))
                     if response:
                         client_socket.send(response.encode())
                     cmd_buffer = b''
                 except Exception as e:
                     print(f'server killed {e}')
-                    self.socket.close()
-                    sys.exit()
+                    try:
+                        client_socket.shutdown(socket.SHUT_RDWR)
+                    except:
+                        pass # The Socket might already be closed
+                    client_socket.close()
+                    return
 
 # Main block for handling cml args and calling funcs
 if __name__ == '__main__':
@@ -128,11 +138,21 @@ if __name__ == '__main__':
     parser.add_argument('-u', '--upload', help='upload a file')
     args = parser.parse_args()
 
+    # if no args passed, print Help
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit()
+
     # invoke NetKit with empty string if listening
     if args.listen:
         buffer = ''
     else:
         buffer = sys.stdin.read()
 
-    nk = NetKit(args, buffer.encode())
+    if buffer is None:
+        buffer = b''
+    else:
+        buffer = buffer.encode()
+
+    nk = NetKit(args, buffer)
     nk.run()
